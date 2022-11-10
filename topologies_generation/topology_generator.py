@@ -5,7 +5,7 @@ from time import sleep
 from typing import Iterable
 from datetime import datetime, timedelta
 
-
+#TODO the same in cache ttl
 _TOPOLOGIES_GENERATION_TIME = timedelta(seconds=1).seconds
 
 
