@@ -1,0 +1,11 @@
+[
+  {
+    "source_ip": "104.219.233.129",
+    "source_port": 35688,
+    "destination_ip": "5.45.104.141",
+    "destination_port": 80,
+    "transport": "TCP"
+  }
+
+
+]

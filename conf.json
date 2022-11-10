@@ -1,0 +1,4 @@
+{
+  "feodo": "https://feodotracker.abuse.ch/downloads/ipblocklist_recommended.json",
+  "tor": "https://check.torproject.org/torbulkexitlist"
+}

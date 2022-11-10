@@ -7,18 +7,18 @@ class AlertSinks(ABC):
     def check(self):
         pass
 
-    def alert_message(output_type,json,ip):
-        Utils.eprint(f"alert to {output_type} , malicious ip detected {ip} at packet {json}")
+    def alert_message(source,output_type,json,ip):
+        Utils.eprint(f"alert to {output_type} , malicious ip detected {ip} ({source}) at packet {json}")
 
 class DBSink(AlertSinks):
     '''get malicious ips from tor'''
-    def alert(json,ip):
-        AlertSinks.alert_message('db',json,ip)
+    def alert(source,json,ip):
+        AlertSinks.alert_message(source,'db',json,ip)
 
 class KafkaSink(AlertSinks):
     '''get malicious ips from fedor'''
-    def alert(json,ip):
-        AlertSinks.alert_message('kafka',json,ip)
+    def alert(source,json,ip):
+        AlertSinks.alert_message(source,'kafka',json,ip)
 
 class Main:
     '''Main'''
