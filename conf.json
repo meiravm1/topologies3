@@ -1,5 +1,5 @@
 {
   "Feodo": {"url":"https://feodotracker.abuse.ch/downloads/ipblocklist_recommended.json"},
   "Tor": {"url": "https://check.torproject.org/torbulkexitlist"},
-  "Mine" : "bla"
+  "Mine" : {"url" : "http://mine"}
 }

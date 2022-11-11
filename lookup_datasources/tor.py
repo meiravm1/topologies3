@@ -15,13 +15,16 @@ class Tor(LookupDatasources):
         self.conf = Utils.load_conf()['Tor']
         self.black_list_cache = []
 
-    def check(self, message):
+    def check(self, message) -> bool:
 
         Tor.cache_refresh(self)
         if message['source_ip'] in self.black_list_cache:
             LookupDatasources.alerts(type(self).__name__, message, message['source_ip'])
+            return False
         elif message['destination_ip'] in self.black_list_cache:
             LookupDatasources.alerts(type(self).__name__, message, message['destination_ip'])
+            return False
+        return True
 
     @staticmethod
     def _validate_response(item) -> bool:

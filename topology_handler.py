@@ -3,19 +3,18 @@ import json
 from typing import Iterable
 
 from topologies_generation.topology_generator import create_topologies_datasource
-from lookup_datasources.lookup_datasources import LookupDatasources
 from utils import Utils
 
+
 class TopologyHandler:
+
     def __init__(self, topologies_datasource: Iterable[dict]):
         self._topologies_datasource = topologies_datasource
         self._lookup_datasources = []
-        # for datasource in LookupDatasources.__subclasses__():
+
         conf = Utils.load_conf()
         for datasource in conf.keys():
             lookup_ds = TopologyHandler.load_modules(f'lookup_datasources.{datasource.lower()}.{datasource}')
-            # lookup_ds = datasource()
-            # print(datasource)
             self._lookup_datasources.append(lookup_ds)
             lookup_ds.cache_refresh()
 

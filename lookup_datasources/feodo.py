@@ -45,14 +45,17 @@ class Feodo(LookupDatasources):
         directory_path = pathlib.Path(__file__).resolve().parent
         with (directory_path / "feodo_template.json").open("r") as template_file:
             template = json.load(template_file)
-        return set(template.keys()) \
-            .issubset(item.keys())
+        return set(item.keys()) \
+            .issubset(template.keys())
 
-    def check(self, message):
+    def check(self, message) -> bool:
         Feodo.cache_refresh(self)
         if message['source_ip'] in self.black_list_cache:
             LookupDatasources.alerts(type(self).__name__, message, message['source_ip'])
+            return False
         elif message['destination_ip'] in self.black_list_cache:
             LookupDatasources.alerts(type(self).__name__, message, message['destination_ip'])
+            return False
+        return True
 
 
