@@ -12,6 +12,10 @@ class TestFeodo(TestCase):
     def test__validate_response_WRONG(self):
         item = "51.178.16132"
 
+        assert Tor._validate_response(item)
+    def test__validate_response_WRONG(self):
+        item = "51.178.16132"
+
         assert Tor._validate_response(item) == False
 
     def test_check_OK(self):

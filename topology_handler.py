@@ -14,10 +14,12 @@ class TopologyHandler:
 
         conf = Utils.load_conf()
         for datasource in conf.keys():
+            # load datasource modules of package
             lookup_ds = TopologyHandler.load_modules(f'lookup_datasources.{datasource.lower()}.{datasource}')
             self._lookup_datasources.append(lookup_ds)
             lookup_ds.cache_refresh()
 
+    # dynamic loading of modules
     @staticmethod
     def load_modules(name):
         import importlib
@@ -30,10 +32,8 @@ class TopologyHandler:
         my_instance = my_class()
         return my_instance
 
+    # check whether topology's ip is valid
     def _handle_topology(self, topology: dict):
-        # pass
-        # for datasource in LookupDatasources.__subclasses__():
-        #     datasource().check(topology)
         for datasource in self._lookup_datasources:
             datasource.check(topology)
 
