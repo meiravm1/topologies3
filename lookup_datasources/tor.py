@@ -16,19 +16,25 @@ class Tor(LookupDatasources):
         self.conf = Utils.load_conf()['Tor']
         self.black_list_cache = []
 
+    @staticmethod
+    def get_source_desc():
+        return "Tor"
+
     ''' check whether ip in message in not malicious'''
     def check(self, message) -> bool:
+        source_name = Tor.get_source_desc()
         try:
-            Tor.cache_refresh(self)
+
+            self.cache_refresh()
             if message['source_ip'] in self.black_list_cache:
-                LookupDatasources.alerts(type(self).__name__, message, message['source_ip'])
+                LookupDatasources.alerts(source_name,message, message['source_ip'])
                 return False
             elif message['destination_ip'] in self.black_list_cache:
-                LookupDatasources.alerts(type(self).__name__, message, message['destination_ip'])
+                LookupDatasources.alerts(source_name, message, message['destination_ip'])
                 return False
             return True
         except Exception as e:
-            print(f"failed checking message {message} ({type(self).__name_}) ")
+            print(f"failed checking message {message} ({source_name}) ")
             return False
 
     @staticmethod
@@ -43,7 +49,7 @@ class Tor(LookupDatasources):
             print("failed validating response from tor")
             return False
 
-    @cached(cache=TTLCache(maxsize=100000, ttl=_CACHE_INVALIDATE_TIME))
+    @cached(cache=TTLCache(maxsize=1, ttl=_CACHE_INVALIDATE_TIME))
     def cache_refresh(self):
         try:
             x = requests.get(self.conf['url'])

@@ -52,3 +52,6 @@ class Mine(LookupDatasources):
         for ip in self.black_list_cache:
             print(ip)
 
+    @staticmethod
+    def get_source_desc():
+        return "Mine"

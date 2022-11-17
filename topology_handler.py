@@ -17,7 +17,7 @@ class TopologyHandler:
             # load datasource modules of package
             lookup_ds = TopologyHandler.load_modules(f'lookup_datasources.{datasource.lower()}.{datasource}')
             self._lookup_datasources.append(lookup_ds)
-            lookup_ds.cache_refresh()
+            #lookup_ds.cache_refresh()
 
     # dynamic loading of modules
     @staticmethod
